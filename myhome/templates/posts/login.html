@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+<body>
+    <h1>Login</h1>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="text" name="username" id="username" required>
+        <input type="password" name='password' id="password" required>
+        <input type="email" name='email' id="email" required>
+        <button type="submit">Login</button>
+    </form>
+    <button class='btn_register'><a href = "http://127.0.0.1:8000/register/">Register</a></button>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'pages/base.html' %} 
+{% load static %}
+{% block category %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+{% for business_post in business_posts %}  <!-- Fixed the loop variable name -->
+<div class="row post_row">
+  <div class="col-xl-4 col-lg-4 col-md-4  justify-content-center align-items-center ">
+    {% if business_post.image %}
+    <img src="{{ business_post.image }}" alt="" class="img" />
+    {% else %}
+    <img src="{% static 'img/img.png' %}" alt="" class="img"/>
+    {% endif %}
+  </div>
+  <div class="col-xl-8 col-lg-8 col-md-8">
+    <p id="p1">{{ business_post.author }}</p>
+    <a href="{% url 'detail' post_id=business_post.id %}">{{ business_post.title }}</a>
+    <p>{{ business_post.description }}...</p>
+    <button>Reading</button>
+  </div>
+</div>
+<hr>
+{% endfor %} 
+{% endblock %}

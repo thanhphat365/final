@@ -1,0 +1,22 @@
+{% extends 'pages/base.html' %} 
+{% load static %}
+{% block category %}
+{% for entertainment_post in entertainment_posts %}
+<div class="row post_row">
+  <div class="col-xl-4 col-lg-4 col-md-4  justify-content-center align-items-center ">
+    {% if entertainment_post.image %}
+    <img src="{{ entertainment_post.image }}" alt="" class="img" />
+    {% else %}
+    <img src="{% static 'img/img.png' %}" alt="" class="img"/>
+    {% endif %}
+  </div>
+  <div class="col-xl-8 col-lg-8 col-md-8">
+    <p id="p1">{{ entertainment_post.author }}</p>
+    <a href="{% url 'detail' post_id=entertainment_post.id %}">{{ entertainment_post.title }}</a>
+    <p>{{ entertainment_post.description }}...</p>
+    
+  </div>
+</div>
+<hr>
+{% endfor %} 
+{% endblock %}
