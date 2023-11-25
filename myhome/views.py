@@ -259,7 +259,7 @@ def user_login(request):
                 form.add_error('password', 'Incorrect password.')
     else:
         form = LoginForm()
-    return render(request, login, {'form': form})
+    return render(request, 'posts/login.html', {'form': form})
 
 #crete_Blog
 def create_blog(request):
