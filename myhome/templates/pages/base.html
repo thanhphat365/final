@@ -44,7 +44,7 @@
                 <li><a class="dropdown-item" href="http://127.0.0.1:8000/technology/">Technology</a></li>
               </ul>
             </div>
-            <a href="http://127.0.0.1:8000/create_blog">Newspaper Posting</a>
+            <a href="http://127.0.0.1:8000/create">Newspaper Posting</a>
             <a href="http://127.0.0.1:8000/about">About</a>
           </div>
         </div>
@@ -76,10 +76,14 @@
           <div class="table">
             <div class="row">
               <div class="col">
-                <p>image</p>
+                {% block center %}
+                
+                {% endblock %}
               </div>
               <div class="col">
-                <p>title</p>
+                {% block img %}
+
+                {% endblock%}
               </div>
             </div>
           </div>

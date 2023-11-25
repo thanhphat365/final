@@ -11,7 +11,7 @@ urlpatterns = [
     path('science/', views.science),
     path('business/', views.business),
     path('about/', views.about),
-    path ('create_blog/', views.create_blog),
+    path('create/', views.create_blog, name='create_blog'),
     path('detail/<int:post_id>/', views.detail, name='detail'),
     path('register/', views.register, name='register'),
     path('<int:post_id>/<str:author>/',views.comment_view,name='comment'),

@@ -5,6 +5,10 @@ import requests
 from django.contrib.auth import authenticate, login,logout
 from .forms import LoginForm,RegistrationForm
 from django.contrib.auth.models import User
+from .models import Blog
+from .forms import BlogForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 #logout
 def user_logout(request):
     logout(request)
@@ -231,43 +235,43 @@ def science(request):
 
 #register
 def register(request):
-    if request.method == 'GET':
-        return render(request, 'posts/register.html')
-    print("da co tai khoan")
-    if request.method =='POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = User.objects.create_user(username=username, password=password)
-        user.save()
-        return redirect('login')
-        print("moi ban login")
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
     else:
-        error = "Error saving registration"
-        return render(request,'posts/register.html',{'error':error})
-        print("chx co tk")
+        form = UserCreationForm()
+    return render(request, 'posts/register.html', {'form': form})
 #login
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')  # Replace 'home' with your home URL path
-
-    return render(request, 'posts/login.html')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('index')
+            else:
+                form.add_error('password', 'Incorrect password.')
+    else:
+        form = LoginForm()
+    return render(request, login, {'form': form})
 
 #crete_Blog
 def create_blog(request):
-    if request.method == "POST":
-        form = BlogForm(request.POST ,request.FILES)
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-    else :
-        form =BlogForm()
-    return render(request,"posts/create_blog.html",{
-        "form":form
-    })
+            blog = form.save(commit=False)
+            blog.save()
+            return redirect('blog_detail', pk=blog.pk)
+    else:
+        form = BlogForm()
+    return render(request, 'posts/create_blog.html', {'form': form})
 #about
 def about(request):
     return render(request,"pages/about.html",)

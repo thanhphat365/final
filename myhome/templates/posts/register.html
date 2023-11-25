@@ -1,24 +1,10 @@
-{% load static %}
+{% extends 'pages/base.html' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
-</head>
-<body>
-{% if error %}
-    <p>{{ error  }}</p>
-{% endif %}
-<form method="POST">
+{% block category %}
+ <h2>Register</h2>
+ <form method="post">
     {% csrf_token %}
-    Username
-    <input type="text" name = 'username' placeholder="Username">
-    Password
-    <input type="password" name = 'password' placeholder="Password">
+    {{ form.as_p }}
     <button type="submit">Register</button>
-    
-  </form>
-  <button class='home'><a href = "http://127.0.0.1:8000/home/">Home</a></button>
-</body>
+ </form>
+{% endblock %}

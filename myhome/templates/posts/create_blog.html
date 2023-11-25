@@ -1,4 +1,10 @@
-{% extends 'pages/base.html' %} 
+{% extends 'pages/base.html' %}
+
 {% block category %}
-<h1>hi</h1>
+ <h2>Create a Blog</h2>
+ <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+ </form>
 {% endblock %}
