@@ -240,7 +240,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')
+            return redirect('home')
     else:
         form = UserCreationForm()
     return render(request, 'posts/register.html', {'form': form})
@@ -254,7 +254,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('index')
+                return redirect('home')
             else:
                 form.add_error('password', 'Incorrect password.')
     else:
